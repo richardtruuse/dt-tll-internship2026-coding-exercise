@@ -218,3 +218,17 @@ src/test/java/com/dynatrace/pong/
     └── PlayerServiceTest.java        # Service unit tests (Mockito)
 ```
 
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "email": "john.doe@example.com",
+  "country": "USA",
+  "ranking": 1
+}
+{
+  "firstName": "Jane",
+  "lastName": "Smith",
+  "email": "jane.smith@example.com",
+  "country": "Canada",
+  "ranking": 2
+}

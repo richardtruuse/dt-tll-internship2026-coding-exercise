@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.dynatrace.pong.model.Game;
 
@@ -18,13 +19,13 @@ public interface GameRepository extends JpaRepository<Game, Long> {
     int getPlayer2Score(@Param("gameId") Long gameId);
 
     @Modifying
+    @Transactional
     @Query("UPDATE Game g SET g.scorePlayer1 = :newScore WHERE g.id = :gameId")
     void updatePlayer1Score(@Param("gameId") Long gameId, @Param("newScore") int newScore);
 
     @Modifying
+    @Transactional
     @Query("UPDATE Game g SET g.scorePlayer2 = :newScore WHERE g.id = :gameId")
     void updatePlayer2Score(@Param("gameId") Long gameId, @Param("newScore") int newScore);
 }
-    
-
 

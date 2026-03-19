@@ -50,28 +50,26 @@ public class GameService {
 
     @Transactional(readOnly = true)
     public int getPlayer1Score(Long gameId) {
-        Game game = gameRepository.findById(gameId)
+        gameRepository.findById(gameId)
                 .orElseThrow(() -> new GameNotFoundException(gameId));
         return gameRepository.getPlayer1Score(gameId);
     }
 
     @Transactional(readOnly = true)
     public int getPlayer2Score(Long gameId) {
-        Game game = gameRepository.findById(gameId)
+        gameRepository.findById(gameId)
                 .orElseThrow(() -> new GameNotFoundException(gameId));
         return gameRepository.getPlayer2Score(gameId);
     }
 
-    @Transactional
     public void updatePlayer1Score(Long gameId, int newScore) {
-        Game game = gameRepository.findById(gameId)
+        gameRepository.findById(gameId)
                 .orElseThrow(() -> new GameNotFoundException(gameId));
         gameRepository.updatePlayer1Score(gameId, newScore);
     }
 
-    @Transactional
     public void updatePlayer2Score(Long gameId, int newScore) {
-        Game game = gameRepository.findById(gameId)
+        gameRepository.findById(gameId)
                 .orElseThrow(() -> new GameNotFoundException(gameId));
         gameRepository.updatePlayer2Score(gameId, newScore);
     }
