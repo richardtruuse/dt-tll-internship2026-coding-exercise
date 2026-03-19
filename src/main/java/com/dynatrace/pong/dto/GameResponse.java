@@ -1,40 +1,31 @@
-package com.dynatrace.pong.model;
+package com.dynatrace.pong.dto;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import com.dynatrace.pong.model.Player;
 
-
-@Entity
-@Table(name = "Games")
-public class Game {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class GameResponse {
     private Long id;
-    
-    @ManyToOne
-    @JoinColumn(name = "player1_id")
     private Player player1;
-    
-    @ManyToOne
-    @JoinColumn(name = "player2_id")
     private Player player2;
-    
     private int scorePlayer1;
     private int scorePlayer2;
 
-    public Game() {
+    public GameResponse() {
     }
 
-    public Game(Player player1, Player player2) {
+    public GameResponse(Long id, Player player1, Player player2, int scorePlayer1, int scorePlayer2) {
+        this.id = id;
         this.player1 = player1;
         this.player2 = player2;
-        this.scorePlayer1 = 0;
-        this.scorePlayer2 = 0;
+        this.scorePlayer1 = scorePlayer1;
+        this.scorePlayer2 = scorePlayer2;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Player getPlayer1() {
@@ -67,13 +58,5 @@ public class Game {
 
     public void setScorePlayer2(int scorePlayer2) {
         this.scorePlayer2 = scorePlayer2;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 }
