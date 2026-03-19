@@ -218,6 +218,29 @@ src/test/java/com/dynatrace/pong/
     └── PlayerServiceTest.java        # Service unit tests (Mockito)
 ```
 
+## 🎮 Games API Guide
+
+### Overview
+The Games API allows you to create and manage pong games between registered players. Games track the scores of both players.
+
+### Games Endpoints
+
+| Method   | Endpoint             | Description              |
+|----------|---------------------|--------------------------|
+| `POST`   | `/api/Games`        | Create a new game        |
+| `GET`    | `/api/Games/{id}`   | Get a game by ID         |
+| `GET`    | `/api/Games`        | Get all games            |
+| `PUT`    | `/api/Games/{id}`   | Update game scores       |
+| `DELETE` | `/api/Games/{id}`   | Delete a game            |
+
+### Step 1: Create Players
+
+Before creating a game, register at least two players using the Players API.
+
+**Endpoint:** `POST /api/players`
+
+**Request:**
+```json
 {
   "firstName": "John",
   "lastName": "Doe",
@@ -225,6 +248,96 @@ src/test/java/com/dynatrace/pong/
   "country": "USA",
   "ranking": 1
 }
+```
+
+### Step 2: Create a Game
+
+Games are created using player **first names** (not emails).
+
+**Endpoint:** `POST /api/Games`
+
+**Request:**
+```json
+{
+  "player1Name": "John",
+  "player2Name": "Jane",
+  "scorePlayer1": 10,
+  "scorePlayer2": 8
+}
+```
+
+**Response:**
+```json
+{
+  "id": 1,
+  "player1": {
+    "id": 1,
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "john.doe@example.com",
+    "country": "USA",
+    "ranking": 1
+  },
+  "player2": {
+    "id": 2,
+    "firstName": "Jane",
+    "lastName": "Smith",
+    "email": "jane.smith@example.com",
+    "country": "Canada",
+    "ranking": 2
+  },
+  "scorePlayer1": 10,
+  "scorePlayer2": 8
+}
+```
+
+### Step 3: Get Game Details
+
+**Endpoint:** `GET /api/Games/{id}`
+
+Returns the game with player details and current scores.
+
+### Step 4: Update Game Scores
+
+**Endpoint:** `PUT /api/Games/{id}`
+
+**Request:**
+```json
+{
+  "scorePlayer1": 15,
+  "scorePlayer2": 12
+}
+```
+
+### Step 5: Get All Games
+
+**Endpoint:** `GET /api/Games`
+
+Returns list of all games with player details.
+
+### Step 6: Delete a Game
+
+**Endpoint:** `DELETE /api/Games/{id}`
+
+**Response:** `204 No Content`
+
+## 📝 Test Players
+
+Use these players for testing the Games API:
+
+**Player 1:**
+```json
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "email": "john.doe@example.com",
+  "country": "USA",
+  "ranking": 1
+}
+```
+
+**Player 2:**
+```json
 {
   "firstName": "Jane",
   "lastName": "Smith",
@@ -232,3 +345,60 @@ src/test/java/com/dynatrace/pong/
   "country": "Canada",
   "ranking": 2
 }
+```
+
+**Player 3:**
+```json
+{
+  "firstName": "Alex",
+  "lastName": "Johnson",
+  "email": "alex.johnson@example.com",
+  "country": "UK",
+  "ranking": 3
+}
+```
+
+**Player 4:**
+```json
+{
+  "firstName": "Maria",
+  "lastName": "Garcia",
+  "email": "maria.garcia@example.com",
+  "country": "Spain",
+  "ranking": 4
+}
+```
+
+## 🎯 Test Games
+
+Once players are created, use these examples to create games:
+
+**Game 1: John vs Jane**
+```json
+{
+  "player1Name": "John",
+  "player2Name": "Jane",
+  "scorePlayer1": 10,
+  "scorePlayer2": 8
+}
+```
+
+**Game 2: Alex vs Maria**
+```json
+{
+  "player1Name": "Alex",
+  "player2Name": "Maria",
+  "scorePlayer1": 15,
+  "scorePlayer2": 12
+}
+```
+
+**Game 3: John vs Alex**
+```json
+{
+  "player1Name": "John",
+  "player2Name": "Alex",
+  "scorePlayer1": 20,
+  "scorePlayer2": 18
+}
+```
